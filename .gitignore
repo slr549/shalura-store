@@ -20,6 +20,7 @@ backend/dist/
 .env.test.local
 .env.production.local
 .env.production
+.env.development
 
 # --- Logs (Catatan Error) ---
 npm-debug.log*

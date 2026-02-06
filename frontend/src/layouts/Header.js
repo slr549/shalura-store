@@ -11,7 +11,6 @@ export class Header {
       <header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
         <div class="container mx-auto px-4 py-3">
           <div class="flex items-center justify-between">
-            <!-- Logo -->
             <a href="#/" class="flex items-center space-x-2 group">
               <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center group-hover:bg-primary-700 transition">
                 <i class="fas fa-tshirt text-white text-xl"></i>
@@ -22,20 +21,17 @@ export class Header {
               </div>
             </a>
 
-            <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center space-x-1">
               ${this.renderNavLinks()}
               ${this.renderUserSection()}
               ${this.renderThemeToggle()}
             </nav>
 
-            <!-- Mobile Menu Button -->
             <button class="md:hidden text-gray-700 dark:text-gray-300 text-2xl" id="menuToggle">
               <i class="fas fa-bars"></i>
             </button>
           </div>
 
-          <!-- Mobile Menu -->
           <div class="md:hidden mt-4 hidden" id="mobileMenu">
             <div class="flex flex-col space-y-3">
               ${this.renderMobileNavLinks()}
@@ -55,6 +51,13 @@ export class Header {
       <a href="#/products" class="nav-link">Produk</a>
       <a href="#/categories" class="nav-link">Kategori</a>
       <a href="#/about" class="nav-link">Tentang</a>
+      
+      ${this.user?.role === 'admin' ? `
+        <a href="#/admin" class="nav-link text-primary-600 font-medium">
+          <i class="fas fa-crown mr-1"></i> Admin
+        </a>
+      ` : ''}
+
       <a href="#/cart" class="nav-link relative">
         <i class="fas fa-shopping-cart"></i>
         ${this.cartCount > 0 ? `
@@ -74,7 +77,7 @@ export class Header {
             <img src="${this.user.avatar}" alt="${this.user.name}" class="w-8 h-8 rounded-full">
             <span class="text-sm font-medium">${this.user.name}</span>
           </div>
-          <a href="#/logout" class="text-gray-500 hover:text-red-500 transition">
+          <a href="#/logout" class="text-gray-500 hover:text-red-500 transition" title="Logout">
             <i class="fas fa-sign-out-alt"></i>
           </a>
         </div>
@@ -102,6 +105,13 @@ export class Header {
       <a href="#/products" class="nav-link">Produk</a>
       <a href="#/categories" class="nav-link">Kategori</a>
       <a href="#/about" class="nav-link">Tentang</a>
+
+      ${this.user?.role === 'admin' ? `
+        <a href="#/admin" class="nav-link text-primary-600 font-medium">
+          <i class="fas fa-crown mr-1"></i> Admin Dashboard
+        </a>
+      ` : ''}
+
       <a href="#/cart" class="nav-link flex justify-between items-center">
         <span>Keranjang</span>
         ${this.cartCount > 0 ? `
