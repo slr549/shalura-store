@@ -1,0 +1,14 @@
+{
+  "name": "fashion-store-api",
+  "version": "1.0.0",
+  "description": "Mock API for development",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "generate": "node generate-data.js"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "json-server": "^0.17.4"
+  }
+}
