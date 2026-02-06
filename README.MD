@@ -28,3 +28,11 @@ backend/
 ├── .env
 ├── .gitignore
 └── server.js
+
+
+
+          ${user?.role === 'admin' ? `
+            <a href="#/admin" class="nav-link">
+              <i class="fas fa-crown mr-1"></i> Admin
+            </a>
+          ` : ''}

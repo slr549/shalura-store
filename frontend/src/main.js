@@ -4,25 +4,25 @@ import { Footer } from './layouts/Footer.js'
 import { api } from './utils/api.js'
 import { storage } from './utils/storage.js'
 
-// Import Halaman User
+// Import Halaman Modular User
 import { ProductsPage } from './pages/ProductsPage.js'
 import { ProductDetailPage } from './pages/ProductDetailPage.js'
 import { CartPage } from './pages/CartPage.js'
-import { CheckoutPage } from './pages/CheckoutPage.js'
+import { CheckoutPage } from './pages/CheckoutPage.js' // Import Baru
 
-// Import Halaman Admin
+// Import Halaman Modular Admin (Baru)
 import { AdminDashboard } from './pages/admin/AdminDashboard.js'
 import { ProductManager } from './pages/admin/ProductManager.js'
 
-class ShaluraStoreApp {
+class FashionStoreApp {
   constructor() {
     this.currentPage = null
-    this.currentPageInstance = null
+    this.currentPageInstance = null // Untuk menyimpan instance halaman aktif
     this.init()
   }
 
   async init() {
-    console.log('🛍️ ShaluraStore App Initializing...')
+    console.log('🛍️ FashionStore App Initializing...')
     
     // Setup layout (Header & Footer)
     this.setupLayout()
@@ -73,11 +73,12 @@ class ShaluraStoreApp {
     window.addEventListener('hashchange', () => this.loadPage())
   }
 
+  // --- LOGIKA ROUTING UTAMA (DIPERBARUI) ---
   async loadPage() {
     const hash = window.location.hash.slice(1) || '/'
     const mainContent = document.getElementById('main-content')
     
-    // 1. Cleanup halaman sebelumnya
+    // 1. Cleanup halaman sebelumnya (jika ada method destroy)
     if (this.currentPageInstance && this.currentPageInstance.destroy) {
       this.currentPageInstance.destroy()
       this.currentPageInstance = null
@@ -94,7 +95,7 @@ class ShaluraStoreApp {
       let content = ''
       this.currentPage = hash
       
-      // 3. Logika Routing (Updated)
+      // 3. Logika Routing
       if (hash === '/') {
         content = await this.renderHomePage()
       } 
@@ -109,25 +110,26 @@ class ShaluraStoreApp {
       } 
       else if (hash === '/cart') {
         this.currentPageInstance = new CartPage()
-        content = this.currentPageInstance.render() // Asumsi render cart sync, kalau async tambahkan await
+        content = this.currentPageInstance.render()
       } 
+      // --- ROUTE BARU: CHECKOUT ---
       else if (hash === '/checkout') {
-        // --- ROUTE BARU: CHECKOUT ---
         this.currentPageInstance = new CheckoutPage()
-        content = await this.currentPageInstance.render()
-      }
-      else if (hash === '/login') {
-        content = await this.renderLoginPage()
+        content = this.currentPageInstance.render()
       }
       // --- ROUTE BARU: ADMIN ---
       else if (hash === '/admin' || hash === '/admin/dashboard') {
         this.currentPageInstance = new AdminDashboard()
         content = await this.currentPageInstance.render()
-      }
+      } 
       else if (hash === '/admin/products' || hash.startsWith('/admin/products/')) {
         this.currentPageInstance = new ProductManager()
         content = await this.currentPageInstance.render()
       }
+      // --- HALAMAN INTERNAL ---
+      else if (hash === '/login') {
+        content = await this.renderLoginPage()
+      } 
       else {
         content = this.renderNotFoundPage()
       }
@@ -136,13 +138,15 @@ class ShaluraStoreApp {
       mainContent.innerHTML = content
       
       // 5. Pasang Event Listener
+      // Jika halaman menggunakan Class Module (punya method attachEvents sendiri)
       if (this.currentPageInstance && this.currentPageInstance.attachEvents) {
         this.currentPageInstance.attachEvents()
       } else {
+        // Jika halaman biasa (Home/Login), gunakan method global ini
         this.attachPageEvents()
       }
 
-      // Update cart count setiap pindah halaman
+      // Update cart count di header setiap pindah halaman
       this.updateHeaderCartCount()
       
     } catch (error) {
@@ -167,6 +171,7 @@ class ShaluraStoreApp {
       featuredProducts = await api.getFeaturedProducts()
     } catch (error) {
       console.log('Using mock data for featured products')
+      // Mock data fallback
       featuredProducts = [
         {
           id: 1,
@@ -238,6 +243,12 @@ class ShaluraStoreApp {
                       </div>
                     </div>
                   </div>
+                  <button 
+                    class="w-full btn-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    data-add-to-cart="${product.id}"
+                  >
+                    <i class="fas fa-cart-plus mr-2"></i>Tambah
+                  </button>
                 </div>
               </div>
             `).join('')}
@@ -318,16 +329,44 @@ class ShaluraStoreApp {
       })
     })
 
-    // 3. Setup Cart Subscription
+    // 3. Handler Add to Cart di Home (Quick Add)
+    document.querySelectorAll('[data-add-to-cart]').forEach(button => {
+      button.addEventListener('click', (e) => {
+        // Mencegah navigasi jika tombol ada di dalam link/card
+        e.stopPropagation(); 
+        const productId = e.target.dataset.addToCart
+        this.addToCart(productId)
+      })
+    })
+
+    // 4. Setup Cart Subscription
     import('./stores/cartStore.js')
       .then(({ cartStore }) => {
         cartStore.subscribe(() => {
           this.updateHeaderCartCount()
         })
       })
-      .catch(() => {
-        // Fallback jika belum ada store
+      .catch(() => {})
+  }
+
+  async addToCart(productId) {
+    const user = storage.get('user')
+    if (!user) {
+      alert('Silakan login terlebih dahulu untuk menambah ke keranjang')
+      window.location.hash = '/login'
+      return
+    }
+
+    try {
+      import('./stores/cartStore.js').then(({ cartStore }) => {
+        // Mocking product data for quick add (in real app, fetch product details)
+        const product = { id: productId, name: 'Produk', price: 0 } 
+        cartStore.addItem(product, null, 1)
+        this.showNotification('Produk berhasil ditambahkan ke keranjang!', 'success')
       })
+    } catch (error) {
+      this.showNotification('Gagal menambahkan ke keranjang', 'error')
+    }
   }
 
   async handleLogin(email, password) {
@@ -403,4 +442,4 @@ class ShaluraStoreApp {
 }
 
 // Start the app
-new ShaluraStoreApp()
+new FashionStoreApp()

@@ -7,19 +7,18 @@ export class ProductsPage {
     this.unsubscribe = null
     this.products = []
     this.loading = true
-    // Simpan referensi pagination jika ada
     this.pagination = { page: 1, totalPages: 1, total: 0 }
+    
+    // PENTING: Expose instance ini ke window agar bisa diakses oleh onclick di HTML
+    window.productsPage = this
   }
 
   async render() {
     // 1. Fetch data awal dari store
     await productStore.fetchProducts()
     
-    // 2. Setup subscription (Opsional, tergantung arsitektur Anda)
-    // Jika productStore berubah, kita update filter options di search util
+    // 2. Setup subscription
     this.unsubscribe = productStore.subscribe(() => {
-      // Sinkronisasi data store ke search util jika perlu
-      // productSearch.setProducts(productStore.products) 
       this.performSearch() 
     })
 
@@ -125,7 +124,6 @@ export class ProductsPage {
   // --- RENDER HELPERS ---
 
   renderCategoryFilters() {
-    // Mengambil kategori unik dari store atau search util
     const categories = productStore.categories || ['all', 'pria', 'wanita', 'anak']; 
     return categories.map(category => `
       <label class="flex items-center cursor-pointer group">
@@ -146,12 +144,12 @@ export class ProductsPage {
   renderAdvancedFilters() {
     const options = productSearch.getFilterOptions()
     
-    // Fallback values untuk mencegah error jika options belum ready
-    const minPrice = options.priceRange?.min || 0
-    const maxPrice = options.priceRange?.max || 10000000
-    const currentMin = productSearch.filters.minPrice || minPrice
-    const currentMax = productSearch.filters.maxPrice || maxPrice
-
+    // Fallback values
+    const min = options.priceRange?.min || 0
+    const max = options.priceRange?.max || 10000000
+    const currentMin = productSearch.filters.minPrice || min
+    const currentMax = productSearch.filters.maxPrice || max
+    
     return `
       <div class="card p-6">
         <h3 class="font-bold text-lg mb-4">Filter Lanjutan</h3>
@@ -159,53 +157,50 @@ export class ProductsPage {
         <div class="mb-6">
           <label class="block text-sm font-medium mb-2">
             Rentang Harga: 
-            <div class="text-primary-600 font-semibold mt-1 text-xs">
-              <span id="priceLabelMin">Rp ${currentMin.toLocaleString('id-ID')}</span> - 
-              <span id="priceLabelMax">Rp ${currentMax.toLocaleString('id-ID')}</span>
-            </div>
+            <span id="priceRangeValue" class="text-primary-600 font-semibold text-xs ml-1">
+              Rp ${currentMin.toLocaleString('id-ID')} - Rp ${currentMax.toLocaleString('id-ID')}
+            </span>
           </label>
           <div class="space-y-4 pt-2">
             <input 
               type="range" 
-              min="${minPrice}"
-              max="${maxPrice}"
+              min="${min}"
+              max="${max}"
               value="${currentMin}"
               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
               id="minPriceSlider"
             >
             <input 
               type="range" 
-              min="${minPrice}"
-              max="${maxPrice}"
+              min="${min}"
+              max="${max}"
               value="${currentMax}"
               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary-600"
               id="maxPriceSlider"
             >
           </div>
         </div>
-
+  
         <div class="mb-6">
-          <label class="block text-sm font-medium mb-3">Rating Minimal</label>
+          <label class="block text-sm font-medium mb-2">Rating Minimal</label>
           <div class="flex flex-wrap gap-2">
             ${[4, 3, 2, 1].map(rating => `
               <button 
-                data-rating="${rating}"
-                class="filter-rating-btn px-3 py-1 rounded-lg text-sm border transition-colors
-                ${productSearch.filters.rating === rating ? 'bg-primary-600 text-white border-primary-600' : 'bg-white hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700'}"
+                class="px-3 py-1 rounded-lg text-sm border transition-colors ${productSearch.filters.rating === rating ? 'bg-primary-600 text-white border-primary-600' : 'bg-white hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700'}"
+                onclick="window.productsPage?.filterByRating(${rating})"
               >
                 ${rating}+ <i class="fas fa-star text-xs"></i>
               </button>
             `).join('')}
             <button 
-              data-rating="all"
-              class="filter-rating-btn px-3 py-1 rounded-lg text-sm border transition-colors
-              ${!productSearch.filters.rating ? 'bg-primary-600 text-white border-primary-600' : 'bg-white hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700'}"
+              class="px-3 py-1 rounded-lg text-sm border transition-colors ${!productSearch.filters.rating ? 'bg-primary-600 text-white border-primary-600' : 'bg-white hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700'}"
+              onclick="window.productsPage?.filterByRating(null)"
             >
               Semua
             </button>
           </div>
         </div>
-
+  
         ${options.brands && options.brands.length > 0 ? `
           <div class="mb-6">
             <label class="block text-sm font-medium mb-2">Brand</label>
@@ -214,28 +209,26 @@ export class ProductsPage {
                 <label class="flex items-center cursor-pointer">
                   <input 
                     type="checkbox" 
-                    class="filter-brand-checkbox rounded text-primary-600 focus:ring-primary-500"
+                    class="rounded text-primary-600 focus:ring-primary-500 mr-2"
                     value="${brand}"
                     ${productSearch.filters.brands.includes(brand) ? 'checked' : ''}
+                    onchange="window.productsPage?.toggleBrandFilter('${brand}')"
                   >
-                  <span class="text-sm ml-2">${brand}</span>
+                  <span class="text-sm">${brand}</span>
                 </label>
               `).join('')}
             </div>
           </div>
         ` : ''}
-
+  
         ${options.colors && options.colors.length > 0 ? `
           <div class="mb-6">
             <label class="block text-sm font-medium mb-2">Warna</label>
             <div class="flex flex-wrap gap-2">
               ${options.colors.map(color => `
                 <button 
-                  data-color="${color}"
-                  class="filter-color-btn px-3 py-1 rounded-full text-xs border transition-all
-                  ${productSearch.filters.colors.includes(color) 
-                    ? 'bg-primary-600 text-white border-primary-600 ring-2 ring-offset-1 ring-primary-200' 
-                    : 'bg-white hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700'}"
+                  class="px-3 py-1 rounded-full text-xs border transition-all ${productSearch.filters.colors.includes(color) ? 'bg-primary-600 text-white border-primary-600 ring-2 ring-offset-1 ring-primary-200' : 'bg-white hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700'}"
+                  onclick="window.productsPage?.toggleColorFilter('${color}')"
                 >
                   ${color}
                 </button>
@@ -243,15 +236,15 @@ export class ProductsPage {
             </div>
           </div>
         ` : ''}
-
+  
         <div class="space-y-3 pt-2 border-t dark:border-gray-700">
           <label class="flex items-center justify-between cursor-pointer">
             <span class="text-sm">Stok Tersedia</span>
             <input 
               type="checkbox" 
-              id="filterInStock"
               class="toggle-checkbox"
               ${productSearch.filters.inStock ? 'checked' : ''}
+              onchange="window.productsPage?.toggleInStockFilter()"
             >
           </label>
           
@@ -259,9 +252,9 @@ export class ProductsPage {
             <span class="text-sm">Sedang Diskon</span>
             <input 
               type="checkbox" 
-              id="filterOnSale"
               class="toggle-checkbox"
               ${productSearch.filters.onSale ? 'checked' : ''}
+              onchange="window.productsPage?.toggleOnSaleFilter()"
             >
           </label>
           
@@ -269,9 +262,9 @@ export class ProductsPage {
             <span class="text-sm">Produk Unggulan</span>
             <input 
               type="checkbox" 
-              id="filterFeatured"
               class="toggle-checkbox"
               ${productSearch.filters.featured ? 'checked' : ''}
+              onchange="window.productsPage?.toggleFeaturedFilter()"
             >
           </label>
         </div>
@@ -326,10 +319,7 @@ export class ProductsPage {
 
   async performSearch() {
     this.loading = true
-    this.updateView() // Show loading
-
-    // Simulasi delay kecil untuk UX loading (opsional)
-    // await new Promise(r => setTimeout(r, 300))
+    this.updateView()
 
     // Gunakan productSearch util untuk memproses data
     const result = productSearch.search()
@@ -342,7 +332,7 @@ export class ProductsPage {
     }
 
     this.loading = false
-    this.updateView() // Show results
+    this.updateView()
   }
 
   updateView() {
@@ -352,7 +342,6 @@ export class ProductsPage {
     const resultCount = document.getElementById('resultCount')
     const paginationContainer = document.getElementById('paginationContainer')
 
-    // Jika elemen belum ada di DOM (saat render awal), skip update
     if (!productsContainer) return
 
     if (this.loading) {
@@ -380,6 +369,52 @@ export class ProductsPage {
         paginationContainer.className = `mt-12 flex justify-center ${this.products.length > 0 ? '' : 'hidden'}`
     }
   }
+
+  // --- FILTER TOGGLES (Dipanggil via onclick di HTML) ---
+
+  toggleBrandFilter(brand) {
+    const brands = [...productSearch.filters.brands]
+    const index = brands.indexOf(brand)
+    
+    if (index === -1) brands.push(brand)
+    else brands.splice(index, 1)
+    
+    productSearch.updateFilters({ brands })
+    this.performSearch()
+  }
+
+  toggleColorFilter(color) {
+    const colors = [...productSearch.filters.colors]
+    const index = colors.indexOf(color)
+    
+    if (index === -1) colors.push(color)
+    else colors.splice(index, 1)
+    
+    productSearch.updateFilters({ colors })
+    this.performSearch()
+  }
+
+  toggleInStockFilter() {
+    productSearch.updateFilters({ inStock: !productSearch.filters.inStock })
+    this.performSearch()
+  }
+
+  toggleOnSaleFilter() {
+    productSearch.updateFilters({ onSale: !productSearch.filters.onSale })
+    this.performSearch()
+  }
+
+  toggleFeaturedFilter() {
+    productSearch.updateFilters({ featured: !productSearch.filters.featured })
+    this.performSearch()
+  }
+
+  filterByRating(rating) {
+    productSearch.updateFilters({ rating })
+    this.performSearch()
+  }
+
+  // --- STATIC EVENT LISTENERS ---
 
   attachEvents() {
     // 1. Search Text (Debounce)
@@ -415,14 +450,16 @@ export class ProductsPage {
     // 4. Price Sliders
     const minSlider = document.getElementById('minPriceSlider')
     const maxSlider = document.getElementById('maxPriceSlider')
-    
+    const priceLabel = document.getElementById('priceRangeValue') // Label digabung
+
     const handlePriceChange = () => {
       const min = parseInt(minSlider.value)
       const max = parseInt(maxSlider.value)
       
-      // Update label UI langsung
-      document.getElementById('priceLabelMin').textContent = `Rp ${min.toLocaleString('id-ID')}`
-      document.getElementById('priceLabelMax').textContent = `Rp ${max.toLocaleString('id-ID')}`
+      // Update label UI
+      if (priceLabel) {
+        priceLabel.textContent = `Rp ${min.toLocaleString('id-ID')} - Rp ${max.toLocaleString('id-ID')}`
+      }
 
       // Update filter logic
       productSearch.updateFilters({ minPrice: min, maxPrice: max })
@@ -434,90 +471,33 @@ export class ProductsPage {
       maxSlider.addEventListener('change', handlePriceChange)
     }
 
-    // 5. Rating Buttons (Event Delegation)
-    document.querySelectorAll('.filter-rating-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const val = e.currentTarget.dataset.rating
-        const rating = val === 'all' ? null : parseInt(val)
-        
-        productSearch.updateFilters({ rating })
-        // Re-render filters untuk update status 'active' class
-        this.refreshSidebarFilters() 
-        this.performSearch()
-      })
-    })
-
-    // 6. Brand Checkboxes
-    document.querySelectorAll('.filter-brand-checkbox').forEach(cb => {
-      cb.addEventListener('change', (e) => {
-        const brand = e.target.value
-        this.toggleBrandFilter(brand)
-      })
-    })
-
-    // 7. Color Buttons
-    document.querySelectorAll('.filter-color-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const color = e.currentTarget.dataset.color
-        this.toggleColorFilter(color)
-      })
-    })
-
-    // 8. Quick Filters (Toggles)
-    const toggles = [
-      { id: 'filterInStock', key: 'inStock' },
-      { id: 'filterOnSale', key: 'onSale' },
-      { id: 'filterFeatured', key: 'featured' }
-    ]
-    toggles.forEach(t => {
-      const el = document.getElementById(t.id)
-      if (el) {
-        el.addEventListener('change', (e) => {
-          productSearch.updateFilters({ [t.key]: e.target.checked })
-          this.performSearch()
-        })
-      }
-    })
-
-    // 9. Reset Button
+    // 5. Reset Button
     const resetBtn = document.getElementById('resetFilters')
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        productSearch.resetFilters()
-        // Refresh UI secara total
-        const content = document.getElementById('main-content') // Asumsi ID container utama
-        if (content) this.render().then(html => {
-             // Cara kasar re-render full page, idealnya update state DOM per komponen
-             // Tapi untuk simplifikasi:
-             document.getElementById('app').innerHTML = '' 
-             // ... logic reload page 
-             location.reload() // Atau panggil init() lagi
-        })
-        
-        // Cara halus: Update value input manual & performSearch
-        if (searchInput) searchInput.value = ''
-        this.refreshSidebarFilters()
-        this.performSearch()
-      })
-    }
-    
-    // Clear Empty State Button
     const clearEmptyBtn = document.getElementById('btn-clear-empty')
-    if(clearEmptyBtn) {
-        clearEmptyBtn.addEventListener('click', () => {
-            productSearch.resetFilters()
-            if (searchInput) searchInput.value = ''
-            this.refreshSidebarFilters()
-            this.performSearch()
+    
+    const handleReset = () => {
+        productSearch.resetFilters()
+        if (searchInput) searchInput.value = ''
+        
+        // Refresh seluruh halaman karena struktur filter berubah drastis (active states)
+        const app = document.getElementById('app')
+        // Cara simpel: Force re-render halaman ini
+        this.render().then(html => {
+            const mainContent = document.getElementById('main-content')
+            if (mainContent) mainContent.innerHTML = html
+            // Note: Idealnya router handle re-render, ini hack cepat
+            location.reload()
         })
     }
+
+    if (resetBtn) resetBtn.addEventListener('click', handleReset)
+    if (clearEmptyBtn) clearEmptyBtn.addEventListener('click', handleReset)
 
     // Attach initial card events
     this.attachProductCardEvents()
   }
 
   attachProductCardEvents() {
-    // Delay sedikit untuk memastikan DOM ready jika dipanggil sync
     setTimeout(() => {
       document.querySelectorAll('.product-card').forEach((element, index) => {
         if (this.products[index]) {
@@ -528,57 +508,11 @@ export class ProductsPage {
     }, 50)
   }
 
-  // Helper untuk refresh sidebar tanpa reload seluruh halaman
-  // (Berguna untuk update class 'active' pada tombol rating/warna)
-  refreshSidebarFilters() {
-      // Dalam implementasi nyata, idealnya menggunakan Virtual DOM atau update class manual
-      // Di sini kita hanya men-trigger performSearch yang akan mengurus hasil produk,
-      // sedangkan UI sidebar mungkin perlu di-update manual class-nya jika ingin responsif instan.
-      // Untuk simplifikasi kode ini, kita biarkan logic render ulang di handle oleh user action berikutnya 
-      // atau render ulang sebagian jika perlu.
-  }
-
-  // --- LOGIC TOGGLES ---
-
-  toggleBrandFilter(brand) {
-    const brands = [...productSearch.filters.brands]
-    const index = brands.indexOf(brand)
-    
-    if (index === -1) brands.push(brand)
-    else brands.splice(index, 1)
-    
-    productSearch.updateFilters({ brands })
-    this.performSearch()
-  }
-
-  toggleColorFilter(color) {
-    const colors = [...productSearch.filters.colors]
-    const index = colors.indexOf(color)
-    
-    if (index === -1) colors.push(color)
-    else colors.splice(index, 1)
-    
-    productSearch.updateFilters({ colors })
-    this.performSearch()
-    // Update UI active state manual jika perlu, atau re-render sidebar
-    this.updateColorButtonsUI()
-  }
-  
-  updateColorButtonsUI() {
-      document.querySelectorAll('.filter-color-btn').forEach(btn => {
-          const color = btn.dataset.color
-          const isActive = productSearch.filters.colors.includes(color)
-          if(isActive) {
-              btn.className = 'filter-color-btn px-3 py-1 rounded-full text-xs border transition-all bg-primary-600 text-white border-primary-600 ring-2 ring-offset-1 ring-primary-200'
-          } else {
-              btn.className = 'filter-color-btn px-3 py-1 rounded-full text-xs border transition-all bg-white hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700'
-          }
-      })
-  }
-
   destroy() {
     if (this.unsubscribe) {
       this.unsubscribe()
     }
+    // Bersihkan global reference
+    delete window.productsPage
   }
 }

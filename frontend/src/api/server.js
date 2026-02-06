@@ -1,31 +1,36 @@
-import { create, router as _router, defaults, bodyParser } from 'json-server'
+import jsonServer from 'json-server'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
+import { readFileSync } from 'fs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const server = create()
-const router = _router(join(__dirname, 'db.json'))
+const server = jsonServer.create()
+const router = jsonServer.router(join(__dirname, 'db.json'))
+const middlewares = jsonServer.defaults()
 
 // Middleware
-server.use(defaults())
-server.use(bodyParser)
+server.use(middlewares)
+server.use(jsonServer.bodyParser)
 
 // Custom middleware untuk log
 server.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`)
+  console.log(`${new Date().toLocaleTimeString()} ${req.method} ${req.url}`)
   next()
 })
 
 // Custom routes
 server.post('/api/auth/login', (req, res) => {
   const { email, password } = req.body
-  const users = router.db.get('users').value()
+  
+  // Baca data users dari db.json
+  const db = JSON.parse(readFileSync(join(__dirname, 'db.json'), 'utf8'))
+  const users = db.users
   const user = users.find(u => u.email === email && u.password === password)
   
   if (user) {
-    // Remove password from response
+    // Remove password dari response
     const { password: _, ...userWithoutPassword } = user
     res.json({
       success: true,
@@ -40,54 +45,20 @@ server.post('/api/auth/login', (req, res) => {
   }
 })
 
+// Featured products endpoint
 server.get('/api/products/featured', (req, res) => {
-  const products = router.db.get('products').value()
-  const featured = products.filter(p => p.featured).slice(0, 8)
+  const db = JSON.parse(readFileSync(join(__dirname, 'db.json'), 'utf8'))
+  const featured = db.products.filter(p => p.featured).slice(0, 8)
   res.json(featured)
 })
 
-server.get('/api/products/search', (req, res) => {
-  const { q, category, minPrice, maxPrice, sort = 'newest' } = req.query
-  let products = router.db.get('products').value()
-  
-  // Filter by search query
-  if (q) {
-    products = products.filter(p => 
-      p.name.toLowerCase().includes(q.toLowerCase()) ||
-      p.description.toLowerCase().includes(q.toLowerCase()) ||
-      p.brand.toLowerCase().includes(q.toLowerCase())
-    )
-  }
-  
-  // Filter by category
-  if (category && category !== 'all') {
-    products = products.filter(p => p.category === category)
-  }
-  
-  // Filter by price range
-  if (minPrice) {
-    products = products.filter(p => p.finalPrice >= parseInt(minPrice))
-  }
-  if (maxPrice) {
-    products = products.filter(p => p.finalPrice <= parseInt(maxPrice))
-  }
-  
-  // Sort
-  if (sort === 'price-asc') {
-    products.sort((a, b) => a.finalPrice - b.finalPrice)
-  } else if (sort === 'price-desc') {
-    products.sort((a, b) => b.finalPrice - a.finalPrice)
-  } else if (sort === 'rating') {
-    products.sort((a, b) => b.rating - a.rating)
-  } else {
-    // newest first (by id)
-    products.sort((a, b) => b.id - a.id)
-  }
-  
-  res.json(products)
+// Categories endpoint
+server.get('/api/categories', (req, res) => {
+  const db = JSON.parse(readFileSync(join(__dirname, 'db.json'), 'utf8'))
+  res.json(db.categories || [])
 })
 
-// Use router
+// Gunakan router
 server.use('/api', router)
 
 // Start server
@@ -101,14 +72,9 @@ server.listen(PORT, () => {
   GET    /api/products          # All products
   GET    /api/products/1        # Single product
   GET    /api/products/featured # Featured products
-  GET    /api/products/search   # Search with filters
   GET    /api/categories        # All categories
-  
   POST   /api/auth/login        # Login
-  POST   /api/carts             # Add to cart
-  GET    /api/carts?userId=1    # Get user cart
   
-  POST   /api/orders            # Create order
-  GET    /api/orders?userId=1   # User orders
+  📁 Database: ${join(__dirname, 'db.json')}
   `)
 })

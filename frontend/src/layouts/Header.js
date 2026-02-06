@@ -17,7 +17,7 @@ export class Header {
                 <i class="fas fa-tshirt text-white text-xl"></i>
               </div>
               <div>
-                <h1 class="text-xl font-bold text-gray-900 dark:text-white">ShaluraStore</h1>
+                <h1 class="text-xl font-bold text-gray-900 dark:text-white">FashionStore</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Premium Fashion</p>
               </div>
             </a>
@@ -56,7 +56,7 @@ export class Header {
       <a href="#/categories" class="nav-link">Kategori</a>
       <a href="#/about" class="nav-link">Tentang</a>
       <a href="#/cart" class="nav-link relative">
-        <i class="fas fa-shopping-cart">Cart</i>
+        <i class="fas fa-shopping-cart"></i>
         ${this.cartCount > 0 ? `
           <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
             ${this.cartCount}

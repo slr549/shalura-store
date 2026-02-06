@@ -45,3 +45,10 @@ coverage/
 
 # --- Vite Specific ---
 .vite/
+
+# --- File ---
+server awal.js
+generate-db.js
+api update.js
+main (awal).js
+package (awal).json

@@ -1,7 +1,7 @@
 import { productStore } from '../stores/productStore.js'
 import { cartStore } from '../stores/cartStore.js'
-import { reviewStore } from '../stores/reviewStore.js' // Import baru
-import { storage } from '../utils/storage.js' // Import baru
+import { reviewStore } from '../stores/reviewStore.js'
+import { storage } from '../utils/storage.js'
 import { formatters } from '../utils/formatters.js'
 
 export class ProductDetailPage {
@@ -37,26 +37,28 @@ export class ProductDetailPage {
           <span class="mx-2">/</span>
           <a href="#/products" class="hover:text-primary-600">Produk</a>
           <span class="mx-2">/</span>
-          <span class="text-gray-800 dark:text-gray-300">${this.product.name}</span>
+          <span class="text-gray-800 dark:text-gray-300 font-medium">${this.product.name}</span>
         </nav>
 
-        <div class="card overflow-hidden">
+        <div class="card overflow-hidden mb-12">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+            
             <div>
-              <div class="mb-4 rounded-xl overflow-hidden">
+              <div class="mb-4 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 relative group">
                 <img 
                   src="${this.product.images[this.selectedImage]}" 
                   alt="${this.product.name}"
-                  class="w-full h-96 object-cover cursor-zoom-in"
+                  class="w-full h-96 object-contain cursor-zoom-in transition-transform duration-300"
                   id="mainImage"
                 >
+                <div class="absolute inset-0 pointer-events-none group-hover:bg-black/5 transition-colors"></div>
               </div>
 
               ${this.product.images.length > 1 ? `
-                <div class="flex space-x-3">
+                <div class="flex space-x-3 overflow-x-auto pb-2 custom-scrollbar">
                   ${this.product.images.map((image, index) => `
                     <button 
-                      class="w-20 h-20 rounded-lg overflow-hidden border-2 ${index === this.selectedImage ? 'border-primary-500' : 'border-transparent'}"
+                      class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 ${index === this.selectedImage ? 'border-primary-500' : 'border-transparent hover:border-gray-300'}"
                       onclick="window.productDetail?.selectImage(${index})"
                     >
                       <img 
@@ -73,9 +75,9 @@ export class ProductDetailPage {
             <div>
               <div class="mb-6">
                 <div class="flex items-center justify-between mb-2">
-                  <h1 class="text-3xl font-bold">${this.product.name}</h1>
+                  <h1 class="text-3xl font-bold text-gray-900 dark:text-white">${this.product.name}</h1>
                   ${this.product.featured ? `
-                    <span class="badge-primary">
+                    <span class="badge-primary whitespace-nowrap ml-4">
                       <i class="fas fa-star mr-1"></i> Unggulan
                     </span>
                   ` : ''}
@@ -84,30 +86,30 @@ export class ProductDetailPage {
                 <div class="flex items-center space-x-4 mb-4">
                   <div class="flex items-center">
                     ${this.renderStars(this.product.rating)}
-                    <span class="ml-2 text-gray-600">
+                    <span class="ml-2 text-gray-600 dark:text-gray-400 text-sm">
                       ${this.product.rating} (${this.product.reviewCount || 0} ulasan)
                     </span>
                   </div>
-                  <span class="text-gray-400">•</span>
-                  <span class="text-green-600">
-                    <i class="fas fa-check-circle mr-1"></i>
+                  <span class="text-gray-300 dark:text-gray-600">•</span>
+                  <span class="${this.product.stock > 0 ? 'text-green-600' : 'text-red-600'} text-sm font-medium flex items-center">
+                    <i class="fas ${this.product.stock > 0 ? 'fa-check-circle' : 'fa-times-circle'} mr-1"></i>
                     ${this.product.stock > 0 ? 'Stok Tersedia' : 'Stok Habis'}
                   </span>
                 </div>
               </div>
 
-              <div class="mb-6">
+              <div class="mb-8 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                 ${discount > 0 ? `
-                  <div class="flex items-center mb-2">
-                    <span class="text-2xl font-bold text-primary-600">
+                  <div class="flex items-end gap-3 mb-1">
+                    <span class="text-3xl font-bold text-primary-600">
                       ${formatters.currency(this.product.finalPrice)}
                     </span>
-                    <span class="badge-error ml-3">
-                      -${discount}%
+                    <span class="text-lg text-gray-500 line-through mb-1">
+                      ${formatters.currency(this.product.price)}
                     </span>
-                  </div>
-                  <div class="text-lg text-gray-500 line-through">
-                    ${formatters.currency(this.product.price)}
+                    <span class="badge-error mb-2">
+                      Hemat ${discount}%
+                    </span>
                   </div>
                 ` : `
                   <div class="text-3xl font-bold text-primary-600">
@@ -116,117 +118,115 @@ export class ProductDetailPage {
                 `}
               </div>
 
-              <div class="mb-6">
+              <div class="mb-8">
                 <h3 class="font-bold text-lg mb-2">Deskripsi</h3>
-                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
                   ${this.product.description}
                 </p>
               </div>
 
               ${this.product.variants && this.product.variants.length > 0 ? `
-                <div class="mb-6">
-                  <h3 class="font-bold text-lg mb-3">Varian</h3>
-                  <div class="space-y-4">
-                    ${this.hasColorVariants() ? `
-                      <div>
-                        <label class="block text-sm font-medium mb-2">Warna</label>
-                        <div class="flex flex-wrap gap-2" id="colorVariants">
-                          ${this.renderColorVariants()}
-                        </div>
+                <div class="mb-8 space-y-6">
+                  ${this.hasColorVariants() ? `
+                    <div>
+                      <label class="block text-sm font-medium mb-3 text-gray-700 dark:text-gray-300">Pilih Warna</label>
+                      <div class="flex flex-wrap gap-3" id="colorVariants">
+                        ${this.renderColorVariants()}
                       </div>
-                    ` : ''}
+                    </div>
+                  ` : ''}
 
-                    ${this.hasSizeVariants() ? `
-                      <div>
-                        <label class="block text-sm font-medium mb-2">Ukuran</label>
-                        <div class="flex flex-wrap gap-2" id="sizeVariants">
-                          ${this.renderSizeVariants()}
-                        </div>
+                  ${this.hasSizeVariants() ? `
+                    <div>
+                      <label class="block text-sm font-medium mb-3 text-gray-700 dark:text-gray-300">Pilih Ukuran</label>
+                      <div class="flex flex-wrap gap-3" id="sizeVariants">
+                        ${this.renderSizeVariants()}
                       </div>
-                    ` : ''}
-                  </div>
+                    </div>
+                  ` : ''}
                 </div>
               ` : ''}
 
-              <div class="mb-6">
-                <label class="block text-sm font-medium mb-2">Jumlah</label>
-                <div class="flex items-center space-x-4">
-                  <div class="flex items-center border rounded-lg">
+              <div class="mb-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <label class="block text-sm font-medium mb-3">Jumlah Pembelian</label>
+                <div class="flex flex-col sm:flex-row gap-4">
+                  
+                  <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 w-fit">
                     <button 
-                      class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 transition-colors rounded-l-lg"
                       onclick="window.productDetail?.decreaseQuantity()"
                     >
-                      <i class="fas fa-minus"></i>
+                      <i class="fas fa-minus text-xs"></i>
                     </button>
                     <input 
                       type="number" 
                       min="1" 
                       max="${this.product.stock}"
                       value="${this.quantity}"
-                      class="w-16 text-center border-0 focus:ring-0 bg-transparent"
+                      class="w-16 text-center border-0 focus:ring-0 bg-transparent font-semibold p-0"
                       id="quantityInput"
                       onchange="window.productDetail?.updateQuantity(this.value)"
                     >
                     <button 
-                      class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 transition-colors rounded-r-lg"
                       onclick="window.productDetail?.increaseQuantity()"
                     >
-                      <i class="fas fa-plus"></i>
+                      <i class="fas fa-plus text-xs"></i>
                     </button>
                   </div>
-                  
-                  <div class="text-sm text-gray-500">
-                    Stok: <span class="font-semibold">${this.product.stock}</span>
+
+                  <div class="flex flex-1 gap-3">
+                    <button 
+                      class="btn-primary flex-1 py-3 text-lg shadow-lg shadow-primary-500/30"
+                      onclick="window.productDetail?.addToCart()"
+                      ${this.product.stock === 0 ? 'disabled' : ''}
+                    >
+                      <i class="fas fa-cart-plus mr-2"></i>
+                      Beli Sekarang
+                    </button>
+                    
+                    <button 
+                      class="btn-secondary px-4 py-3"
+                      onclick="window.productDetail?.addToWishlist()"
+                      title="Tambah ke Wishlist"
+                    >
+                      <i class="far fa-heart text-xl"></i>
+                    </button>
                   </div>
+                </div>
+                <p class="mt-2 text-xs text-gray-500">
+                  Tersisa ${this.product.stock} stok lagi untuk varian ini
+                </p>
+              </div>
+
+              <div class="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 text-sm space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-500">Kategori</span>
+                  <span class="font-medium text-gray-900 dark:text-white capitalize">${this.product.category}</span>
+                </div>
+                ${this.product.brand ? `
+                  <div class="flex justify-between">
+                    <span class="text-gray-500">Brand</span>
+                    <span class="font-medium text-gray-900 dark:text-white">${this.product.brand}</span>
+                  </div>
+                ` : ''}
+                <div class="flex justify-between">
+                  <span class="text-gray-500">SKU</span>
+                  <span class="font-medium text-gray-900 dark:text-white font-mono">${this.selectedVariant?.sku || `PRD-${this.product.id}`}</span>
                 </div>
               </div>
 
-              <div class="flex space-x-4">
-                <button 
-                  class="btn-primary flex-1 py-3"
-                  onclick="window.productDetail?.addToCart()"
-                  ${this.product.stock === 0 ? 'disabled' : ''}
-                >
-                  <i class="fas fa-cart-plus mr-2"></i>
-                  Tambah ke Keranjang
-                </button>
-                
-                <button 
-                  class="btn-secondary py-3 px-6"
-                  onclick="window.productDetail?.addToWishlist()"
-                >
-                  <i class="far fa-heart"></i>
-                </button>
-              </div>
-
-              <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span class="text-gray-500">Kategori:</span>
-                    <span class="ml-2 font-medium">${this.product.category}</span>
-                  </div>
-                  ${this.product.brand ? `
-                    <div>
-                      <span class="text-gray-500">Brand:</span>
-                      <span class="ml-2 font-medium">${this.product.brand}</span>
-                    </div>
-                  ` : ''}
-                  <div>
-                    <span class="text-gray-500">SKU:</span>
-                    <span class="ml-2 font-medium">${this.selectedVariant?.sku || `PROD-${this.product.id}`}</span>
-                  </div>
-                  <div>
-                    <span class="text-gray-500">Tanggal Ditambah:</span>
-                    <span class="ml-2 font-medium">${new Date(this.product.createdAt).toLocaleDateString('id-ID')}</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
 
-        <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <h2 class="text-2xl font-bold mb-6">Ulasan & Rating</h2>
+        <div class="mt-12">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            Ulasan Pelanggan
+            <span class="ml-3 text-sm font-normal text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+              ${this.product.reviewCount || 0}
+            </span>
+          </h2>
           ${this.renderReviewsSection()}
         </div>
 
@@ -237,7 +237,7 @@ export class ProductDetailPage {
   // --- REVIEW METHODS ---
 
   renderReviewsSection() {
-    // Pastikan reviewStore ada (fallback empty array jika error)
+    // Ambil data real dari store, fallback ke array kosong
     const reviews = reviewStore ? reviewStore.getReviews(this.productId) : []
     const averageRating = reviewStore ? reviewStore.getAverageRating(this.productId) : 0
     const distribution = reviewStore ? reviewStore.getRatingDistribution(this.productId) : {}
@@ -246,7 +246,7 @@ export class ProductDetailPage {
     return `
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-1">
-          <div class="card p-6">
+          <div class="card p-6 sticky top-24">
             <div class="text-center mb-6">
               <div class="text-5xl font-bold text-primary-600 mb-2">
                 ${averageRating.toFixed(1)}
@@ -254,34 +254,36 @@ export class ProductDetailPage {
               <div class="flex justify-center mb-2">
                 ${this.renderStars(averageRating)}
               </div>
-              <p class="text-gray-600">${totalReviews} ulasan</p>
+              <p class="text-gray-600 dark:text-gray-400">Berdasarkan ${totalReviews} ulasan</p>
             </div>
             
-            <div class="space-y-2">
+            <div class="space-y-3 mb-8">
               ${[5, 4, 3, 2, 1].map(rating => {
                 const count = distribution[rating] || 0
                 const percentage = totalReviews > 0 ? (count / totalReviews) * 100 : 0
                 
                 return `
-                  <div class="flex items-center">
-                    <span class="w-10 text-sm">${rating} <i class="fas fa-star text-xs text-yellow-400"></i></span>
-                    <div class="flex-1 mx-3 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div class="flex items-center text-sm">
+                    <span class="w-12 flex items-center">
+                      ${rating} <i class="fas fa-star text-xs ml-1 text-gray-400"></i>
+                    </span>
+                    <div class="flex-1 mx-3 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                       <div 
-                        class="h-full bg-yellow-400"
+                        class="h-full bg-yellow-400 rounded-full"
                         style="width: ${percentage}%"
                       ></div>
                     </div>
-                    <span class="w-10 text-sm text-right">${count}</span>
+                    <span class="w-8 text-right text-gray-500">${count}</span>
                   </div>
                 `
               }).join('')}
             </div>
             
             <button 
-              class="w-full btn-primary mt-6"
+              class="w-full btn-outline py-3 border-2 font-semibold"
               onclick="window.productDetail?.showReviewForm()"
             >
-              <i class="fas fa-edit mr-2"></i>Tulis Ulasan
+              <i class="fas fa-pen mr-2"></i>Tulis Ulasan
             </button>
           </div>
         </div>
@@ -289,16 +291,16 @@ export class ProductDetailPage {
         <div class="lg:col-span-2">
           <div class="space-y-6">
             ${reviews.length === 0 ? `
-              <div class="text-center py-12 card p-6">
-                <div class="w-24 h-24 mx-auto mb-6 text-gray-300">
-                  <i class="fas fa-comment-dots text-6xl"></i>
+              <div class="text-center py-12 card border-2 border-dashed border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                <div class="w-16 h-16 mx-auto mb-4 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-sm text-gray-300">
+                  <i class="fas fa-comment-dots text-3xl"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-2">Belum Ada Ulasan</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-6">
-                  Jadilah yang pertama mengulas produk ini
+                <h3 class="text-lg font-bold mb-1">Belum Ada Ulasan</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm">
+                  Jadilah yang pertama membagikan pengalaman Anda
                 </p>
                 <button class="btn-primary" onclick="window.productDetail?.showReviewForm()">
-                  <i class="fas fa-edit mr-2"></i>Tulis Ulasan Pertama
+                  Tulis Ulasan Pertama
                 </button>
               </div>
             ` : reviews.map(review => this.renderReviewCard(review)).join('')}
@@ -306,8 +308,9 @@ export class ProductDetailPage {
           
           ${reviews.length > 5 ? `
             <div class="mt-8 text-center">
-              <button class="btn-secondary" onclick="window.productDetail?.loadMoreReviews()">
-                Lihat Semua Ulasan (${totalReviews})
+              <button class="btn-ghost text-primary-600 font-medium">
+                Lihat Semua Ulasan
+                <i class="fas fa-chevron-down ml-2"></i>
               </button>
             </div>
           ` : ''}
@@ -318,69 +321,63 @@ export class ProductDetailPage {
 
   renderReviewCard(review) {
     return `
-      <div class="card p-6">
+      <div class="card p-6 animate-fade-in">
         <div class="flex justify-between items-start mb-4">
           <div class="flex items-center">
             <img 
-              src="${review.userAvatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.userName)}`}" 
+              src="${review.userAvatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(review.userName)}&background=random`}" 
               alt="${review.userName}"
-              class="w-12 h-12 rounded-full mr-4 object-cover"
+              class="w-10 h-10 rounded-full mr-4 object-cover ring-2 ring-gray-100"
             >
             <div>
-              <div class="font-bold">${review.userName}</div>
-              <div class="flex items-center">
-                <div class="mr-2 text-sm">
+              <div class="font-bold text-gray-900 dark:text-white text-sm">${review.userName}</div>
+              <div class="flex items-center mt-1">
+                <div class="flex text-xs mr-2">
                   ${this.renderStars(review.rating)}
                 </div>
-                <span class="text-gray-500 text-sm">
-                  ${new Date(review.createdAt).toLocaleDateString('id-ID')}
+                <span class="text-gray-400 text-xs">•</span>
+                <span class="text-gray-500 text-xs ml-2">
+                  ${new Date(review.createdAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </span>
               </div>
             </div>
           </div>
           
           ${review.verified ? `
-            <span class="badge-success text-xs">
-              <i class="fas fa-check-circle mr-1"></i>Verified
+            <span class="text-xs bg-green-50 text-green-600 px-2 py-1 rounded-full border border-green-100 flex items-center">
+              <i class="fas fa-check-circle mr-1"></i> Terverifikasi
             </span>
           ` : ''}
         </div>
         
-        <h4 class="font-bold text-lg mb-2">${review.title}</h4>
-        <p class="text-gray-600 dark:text-gray-300 mb-4">${review.comment}</p>
+        <h4 class="font-bold text-base mb-2 text-gray-800 dark:text-gray-200">${review.title}</h4>
+        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">${review.comment}</p>
         
         ${review.images && review.images.length > 0 ? `
-          <div class="flex space-x-2 mb-4">
+          <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
             ${review.images.slice(0, 3).map(image => `
               <img 
                 src="${image}" 
                 alt="Review image"
-                class="w-20 h-20 rounded-lg object-cover cursor-pointer hover:opacity-80"
-                onclick="window.productDetail?.viewImage('${image}')"
+                class="w-20 h-20 rounded-lg object-cover cursor-pointer hover:opacity-80 transition-opacity border border-gray-200 dark:border-gray-700"
+                onclick="window.open('${image}', '_blank')"
               >
             `).join('')}
-            
-            ${review.images.length > 3 ? `
-              <div class="w-20 h-20 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                <span class="text-gray-500">+${review.images.length - 3}</span>
+             ${review.images.length > 3 ? `
+              <div class="w-20 h-20 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 text-xs font-medium border border-gray-200 dark:border-gray-700">
+                +${review.images.length - 3} Foto
               </div>
             ` : ''}
           </div>
         ` : ''}
         
-        <div class="flex justify-between items-center mt-4 border-t pt-4 dark:border-gray-700">
-          <div class="flex items-center space-x-4">
-            <button 
-              class="flex items-center text-sm text-gray-600 hover:text-primary-600 transition-colors"
-              onclick="window.productDetail?.likeReview(${review.id})"
-            >
-              <i class="fas fa-thumbs-up mr-2"></i>
-              <span>Membantu (${review.likes || 0})</span>
-            </button>
-          </div>
-          
-          <button class="text-gray-400 hover:text-red-500 transition-colors text-sm">
-            <i class="fas fa-flag"></i> Laporkan
+        <div class="flex items-center space-x-6 border-t border-gray-100 dark:border-gray-700 pt-4 mt-2">
+          <button 
+            class="flex items-center text-xs text-gray-500 hover:text-primary-600 transition-colors"
+            onclick="window.productDetail?.likeReview(${review.id})"
+          >
+            <i class="far fa-thumbs-up mr-2 text-base"></i>
+            <span>Membantu (${review.likes || 0})</span>
           </button>
         </div>
       </div>
@@ -402,74 +399,84 @@ export class ProductDetailPage {
       order.items?.some(item => item.productId == this.productId)
     )
     
-    // NOTE: Uncomment baris di bawah ini jika ingin enforce aturan pembelian
+    // Optional: Enforce verified purchase
     // if (!hasOrdered) {
-    //   this.showNotification('Hanya pembeli produk ini yang dapat memberi ulasan', 'error')
+    //   this.showNotification('Anda harus membeli produk ini sebelum memberi ulasan', 'error')
     //   return
     // }
     
     const modal = document.createElement('div')
-    modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in'
+    modal.className = 'fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in'
     modal.innerHTML = `
-      <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full p-8 animate-slide-up shadow-2xl">
-        <div class="flex justify-between items-center mb-6">
-          <h3 class="text-xl font-bold">Tulis Ulasan</h3>
-          <button 
-            class="text-gray-500 hover:text-gray-700 text-2xl"
-            onclick="this.closest('.fixed').remove()"
-          >
-            ×
-          </button>
-        </div>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full p-8 animate-slide-up shadow-2xl relative">
+        <button 
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          onclick="this.closest('.fixed').remove()"
+        >
+          ×
+        </button>
+
+        <h3 class="text-xl font-bold mb-1 text-center">Bagaimana produknya?</h3>
+        <p class="text-center text-gray-500 text-sm mb-6">Rating Anda sangat berarti bagi kami</p>
         
         <form id="reviewForm">
-          <div class="mb-6 text-center">
-            <label class="block text-sm font-medium mb-3">Rating Anda</label>
-            <div class="flex justify-center space-x-2" id="ratingStars">
+          <div class="mb-8 text-center">
+            <div class="flex justify-center gap-2 mb-2" id="ratingStars">
               ${[1,2,3,4,5].map(star => `
                 <button 
                   type="button"
-                  class="text-4xl text-gray-300 hover:text-yellow-400 transition-colors focus:outline-none"
+                  class="text-4xl text-gray-200 hover:text-yellow-400 transition-colors focus:outline-none transform hover:scale-110 duration-200"
                   onclick="window.productDetail?.setRating(${star})"
                 >
-                  ★
+                  <i class="fas fa-star"></i>
                 </button>
               `).join('')}
             </div>
+            <p class="text-sm font-medium text-yellow-500 h-5" id="ratingLabel">Pilih rating</p>
             <input type="hidden" name="rating" id="selectedRating" value="0" required>
-            <p class="text-sm text-red-500 mt-2 hidden" id="ratingError">Silakan pilih rating</p>
+            <p class="text-xs text-red-500 mt-2 hidden" id="ratingError">Mohon pilih rating bintang</p>
           </div>
           
-          <div class="mb-4">
-            <label class="block text-sm font-medium mb-2">Judul Ulasan</label>
-            <input 
-              type="text" 
-              class="input w-full"
-              name="title"
-              placeholder="Contoh: Kualitas sangat bagus!"
-              required
-            >
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Judul</label>
+              <input 
+                type="text" 
+                class="input w-full font-medium"
+                name="title"
+                placeholder="Cth: Kualitas bagus, pengiriman cepat!"
+                required
+              >
+            </div>
+            
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Ulasan Lengkap</label>
+              <textarea 
+                class="input w-full min-h-[100px] leading-relaxed"
+                name="comment"
+                placeholder="Ceritakan kepuasan Anda tentang kualitas bahan, ukuran, dan pengiriman..."
+                required
+              ></textarea>
+            </div>
+
+            <div>
+               <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Foto (Opsional)</label>
+               <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors cursor-pointer">
+                  <i class="fas fa-camera text-gray-400 text-xl mb-1"></i>
+                  <p class="text-xs text-gray-500">Tambah Foto</p>
+               </div>
+            </div>
           </div>
           
-          <div class="mb-6">
-            <label class="block text-sm font-medium mb-2">Detail Ulasan</label>
-            <textarea 
-              class="input w-full min-h-[120px]"
-              name="comment"
-              placeholder="Bagikan pengalaman Anda dengan produk ini..."
-              required
-            ></textarea>
-          </div>
-          
-          <div class="flex justify-end space-x-3">
+          <div class="mt-8 grid grid-cols-2 gap-3">
             <button 
               type="button"
-              class="btn-secondary"
+              class="btn-secondary py-3"
               onclick="this.closest('.fixed').remove()"
             >
               Batal
             </button>
-            <button type="submit" class="btn-primary">
+            <button type="submit" class="btn-primary py-3">
               Kirim Ulasan
             </button>
           </div>
@@ -479,7 +486,7 @@ export class ProductDetailPage {
     
     document.body.appendChild(modal)
     
-    // Form submission
+    // Form submission logic
     const form = modal.querySelector('#reviewForm')
     form.addEventListener('submit', (e) => {
       e.preventDefault()
@@ -498,7 +505,7 @@ export class ProductDetailPage {
         userId: user.id,
         userName: user.name,
         userAvatar: user.avatar || null,
-        images: [], // Placeholder for image upload feature
+        images: [], // Placeholder for future image upload implementation
         verified: hasOrdered,
         likes: 0
       }
@@ -506,14 +513,11 @@ export class ProductDetailPage {
       // Save review
       reviewStore.addReview(this.productId, reviewData)
       
-      // Close modal
       modal.remove()
+      this.showNotification('Terima kasih! Ulasan berhasil dikirim.', 'success')
       
-      // Show success message
-      this.showNotification('Ulasan berhasil dikirim!', 'success')
-      
-      // Refresh page content (simpel reload untuk update UI)
-      // Alternatif: Re-render partial string dan inject ke DOM
+      // Refresh page content logic
+      // Idealnya re-render partial, tapi reload simple works for MVP
       setTimeout(() => window.location.reload(), 1000)
     })
   }
@@ -521,21 +525,24 @@ export class ProductDetailPage {
   setRating(rating) {
     const input = document.getElementById('selectedRating')
     const buttons = document.querySelectorAll('#ratingStars button')
-    
+    const label = document.getElementById('ratingLabel')
+    const labels = ["Sangat Buruk", "Buruk", "Cukup", "Bagus", "Sangat Bagus"]
+
     if (input) input.value = rating
+    if (label) label.textContent = labels[rating - 1]
     
     buttons.forEach((btn, index) => {
       if (index < rating) {
-        btn.classList.add('text-yellow-400')
-        btn.classList.remove('text-gray-300')
+        btn.className = "text-4xl text-yellow-400 transition-colors focus:outline-none transform scale-110 duration-200"
       } else {
-        btn.classList.add('text-gray-300')
-        btn.classList.remove('text-yellow-400')
+        btn.className = "text-4xl text-gray-200 hover:text-yellow-200 transition-colors focus:outline-none transform hover:scale-110 duration-200"
       }
     })
+    
+    document.getElementById('ratingError').classList.add('hidden')
   }
 
-  // --- EXISTING METHODS ---
+  // --- HELPER METHODS ---
 
   renderStars(rating) {
     const fullStars = Math.floor(rating)
@@ -552,27 +559,25 @@ export class ProductDetailPage {
     
     const emptyStars = 5 - Math.ceil(rating)
     for (let i = 0; i < emptyStars; i++) {
-      stars += '<i class="far fa-star text-yellow-400"></i>'
+      stars += '<i class="far fa-star text-gray-300"></i>'
     }
     
     return stars
   }
 
   hasColorVariants() {
-    return this.product.variants && 
-           new Set(this.product.variants.map(v => v.color)).size > 1
+    return this.product.variants && new Set(this.product.variants.map(v => v.color)).size > 1
   }
 
   hasSizeVariants() {
-    return this.product.variants && 
-           new Set(this.product.variants.map(v => v.size)).size > 1
+    return this.product.variants && new Set(this.product.variants.map(v => v.size)).size > 1
   }
 
   renderColorVariants() {
     const colors = [...new Set(this.product.variants.map(v => v.color))]
     return colors.map(color => `
       <button 
-        class="px-4 py-2 rounded-lg border ${this.selectedVariant?.color === color ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-gray-300 hover:border-primary-400'}"
+        class="px-4 py-2 rounded-lg border text-sm font-medium transition-all ${this.selectedVariant?.color === color ? 'border-primary-500 ring-1 ring-primary-500 bg-primary-50 text-primary-700' : 'border-gray-200 hover:border-gray-400 bg-white'}"
         onclick="window.productDetail?.selectColor('${color}')"
       >
         ${color}
@@ -584,7 +589,7 @@ export class ProductDetailPage {
     const sizes = [...new Set(this.product.variants.map(v => v.size))]
     return sizes.map(size => `
       <button 
-        class="px-4 py-2 rounded-lg border ${this.selectedVariant?.size === size ? 'border-primary-500 bg-primary-50 text-primary-700' : 'border-gray-300 hover:border-primary-400'}"
+        class="min-w-[3rem] px-3 py-2 rounded-lg border text-sm font-medium transition-all ${this.selectedVariant?.size === size ? 'border-primary-500 ring-1 ring-primary-500 bg-primary-50 text-primary-700' : 'border-gray-200 hover:border-gray-400 bg-white'}"
         onclick="window.productDetail?.selectSize('${size}')"
       >
         ${size}
@@ -595,24 +600,33 @@ export class ProductDetailPage {
   renderNotFound() {
     return `
       <div class="text-center py-20">
-        <div class="text-9xl text-gray-300 mb-6">404</div>
+        <div class="text-9xl text-gray-200 mb-6 font-bold">404</div>
         <h2 class="text-3xl font-bold mb-4">Produk Tidak Ditemukan</h2>
         <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
-          Produk yang Anda cari tidak tersedia atau telah dihapus.
+          Produk yang Anda cari tidak tersedia atau telah dihapus dari katalog kami.
         </p>
         <a href="#/products" class="btn-primary inline-block">
-          <i class="fas fa-arrow-left mr-2"></i>Kembali ke Produk
+          <i class="fas fa-arrow-left mr-2"></i>Kembali ke Katalog
         </a>
       </div>
     `
   }
 
-  // Methods for template to call
+  // --- ACTIONS ---
+
   selectImage(index) {
     this.selectedImage = index
     const mainImage = document.getElementById('mainImage')
     if (mainImage) {
-      mainImage.src = this.product.images[index]
+      // Add fade effect
+      mainImage.style.opacity = '0'
+      setTimeout(() => {
+        mainImage.src = this.product.images[index]
+        mainImage.style.opacity = '1'
+      }, 150)
+      
+      // Update active thumbnail border
+      // (Simplified logic here, full implementation requires managing classes on thumbnails)
     }
   }
 
@@ -621,7 +635,11 @@ export class ProductDetailPage {
       (!this.selectedVariant?.size || v.size === this.selectedVariant.size))
     if (variant) {
       this.selectedVariant = variant
-      this.updateVariantButtons()
+      this.render().then(html => {
+         // Hot reload partials would be better, but re-rendering full page works
+         document.getElementById('main-content').innerHTML = html
+         this.attachEvents()
+      })
     }
   }
 
@@ -630,30 +648,11 @@ export class ProductDetailPage {
       (!this.selectedVariant?.color || v.color === this.selectedVariant.color))
     if (variant) {
       this.selectedVariant = variant
-      this.updateVariantButtons()
+      this.render().then(html => {
+         document.getElementById('main-content').innerHTML = html
+         this.attachEvents()
+      })
     }
-  }
-
-  updateVariantButtons() {
-    // Update active state for color buttons
-    document.querySelectorAll('#colorVariants button').forEach(btn => {
-      const color = btn.textContent.trim()
-      if (color === this.selectedVariant?.color) {
-        btn.className = 'px-4 py-2 rounded-lg border border-primary-500 bg-primary-50 text-primary-700'
-      } else {
-        btn.className = 'px-4 py-2 rounded-lg border border-gray-300 hover:border-primary-400'
-      }
-    })
-
-    // Update active state for size buttons
-    document.querySelectorAll('#sizeVariants button').forEach(btn => {
-      const size = btn.textContent.trim()
-      if (size === this.selectedVariant?.size) {
-        btn.className = 'px-4 py-2 rounded-lg border border-primary-500 bg-primary-50 text-primary-700'
-      } else {
-        btn.className = 'px-4 py-2 rounded-lg border border-gray-300 hover:border-primary-400'
-      }
-    })
   }
 
   increaseQuantity() {
@@ -678,50 +677,74 @@ export class ProductDetailPage {
 
   addToCart() {
     if (this.product.stock === 0) {
-      this.showNotification('Produk stok habis!', 'error')
+      this.showNotification('Maaf, stok produk sedang habis.', 'error')
       return
     }
 
     cartStore.addItem(this.product, this.selectedVariant, this.quantity)
-    this.showNotification('Produk ditambahkan ke keranjang!', 'success')
+    this.showNotification('Produk berhasil ditambahkan ke keranjang!', 'success')
   }
 
   addToWishlist() {
-    this.showNotification('Ditambahkan ke wishlist!', 'info')
+    this.showNotification('Produk ditambahkan ke Wishlist', 'success')
+  }
+  
+  likeReview(reviewId) {
+    if (reviewStore) {
+        reviewStore.likeReview(reviewId)
+        // Refresh UI simple
+        // In real app, just update the counter span
+    }
   }
 
   showNotification(message, type = 'info') {
     const notification = document.createElement('div')
+    const bgClass = type === 'success' ? 'bg-green-600' : type === 'error' ? 'bg-red-600' : 'bg-blue-600'
+    const iconClass = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'
+    
     notification.className = `
-      fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg 
-      animate-slide-up ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white
-      flex items-center
+      fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-xl 
+      animate-slide-up ${bgClass} text-white
+      flex items-center gap-3 min-w-[300px]
     `
     notification.innerHTML = `
-      <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} mr-2"></i>
-      <span>${message}</span>
+      <i class="fas ${iconClass} text-xl"></i>
+      <div>
+        <h4 class="font-bold text-sm uppercase opacity-90">${type}</h4>
+        <p class="text-sm font-medium">${message}</p>
+      </div>
     `
     
     document.body.appendChild(notification)
     
     setTimeout(() => {
-      notification.classList.add('opacity-0', 'transition-opacity', 'duration-300')
+      notification.style.opacity = '0'
+      notification.style.transform = 'translateY(-20px)'
+      notification.style.transition = 'all 0.3s ease'
       setTimeout(() => notification.remove(), 300)
-    }, 2000)
+    }, 3000)
   }
 
   attachEvents() {
-    // Make methods available to template
     window.productDetail = this
 
     // Image zoom effect
     const mainImage = document.getElementById('mainImage')
     if (mainImage) {
-      mainImage.addEventListener('click', () => {
-        mainImage.classList.toggle('cursor-zoom-out')
-        mainImage.classList.toggle('scale-150')
-        mainImage.classList.toggle('transition-transform')
-        mainImage.classList.toggle('duration-300')
+      mainImage.addEventListener('mousemove', (e) => {
+        const { left, top, width, height } = mainImage.getBoundingClientRect()
+        const x = (e.clientX - left) / width * 100
+        const y = (e.clientY - top) / height * 100
+        mainImage.style.transformOrigin = `${x}% ${y}%`
+      })
+      
+      mainImage.addEventListener('mouseenter', () => {
+        mainImage.classList.add('scale-150')
+      })
+      
+      mainImage.addEventListener('mouseleave', () => {
+        mainImage.classList.remove('scale-150')
+        mainImage.style.transformOrigin = 'center center'
       })
     }
   }
