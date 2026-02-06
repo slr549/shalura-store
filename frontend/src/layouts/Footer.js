@@ -10,10 +10,10 @@ export class Footer {
                 <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
                   <i class="fas fa-tshirt text-primary-600 text-xl"></i>
                 </div>
-                <h2 class="text-xl font-bold">FashionStore</h2>
+                <h2 class="text-xl font-bold">ShaluraStore</h2>
               </div>
               <p class="text-gray-300">
-                Toko fashion online dengan kualitas premium dan harga terjangkau.
+                Toko shalura online dengan kualitas premium dan harga terjangkau.
               </p>
             </div>
 
@@ -53,7 +53,7 @@ export class Footer {
                 </li>
                 <li class="flex items-center space-x-2">
                   <i class="fas fa-envelope text-gray-300"></i>
-                  <span class="text-gray-300">hello@fashionstore.id</span>
+                  <span class="text-gray-300">hello@shalurastore.id</span>
                 </li>
               </ul>
               <div class="flex space-x-4 mt-4">
@@ -71,7 +71,7 @@ export class Footer {
           </div>
 
           <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-            <p>&copy; ${new Date().getFullYear()} FashionStore. Dibangun dengan ❤️ untuk portfolio.</p>
+            <p>&copy; ${new Date().getFullYear()} ShaluraStore.</p>
           </div>
         </div>
       </footer>

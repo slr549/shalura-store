@@ -1,0 +1,1099 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Oriental Metal Mouse",
+      "price": 388446,
+      "discount": 0,
+      "finalPrice": 388446,
+      "stock": 31,
+      "description": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+      "category": "Tas",
+      "brand": "Levi's",
+      "tags": [
+        "new"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Krem",
+          "size": "M",
+          "sku": "SKU-K2BJQFQX",
+          "stock": 33
+        },
+        {
+          "id": 2,
+          "color": "Merah",
+          "size": "XL",
+          "sku": "SKU-F2XVEDYL",
+          "stock": 32
+        },
+        {
+          "id": 3,
+          "color": "Abu-abu",
+          "size": "L",
+          "sku": "SKU-BMWNL32N",
+          "stock": 35
+        },
+        {
+          "id": 4,
+          "color": "Abu-abu",
+          "size": "M",
+          "sku": "SKU-SFXABCIZ",
+          "stock": 26
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": true,
+      "rating": 4.2,
+      "reviewCount": 78,
+      "createdAt": "2025-06-11"
+    },
+    {
+      "id": 2,
+      "name": "Awesome Wooden Hat",
+      "price": 535675,
+      "discount": 0,
+      "finalPrice": 535675,
+      "stock": 97,
+      "description": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+      "category": "Tas",
+      "brand": "Nike",
+      "tags": [],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Coklat",
+          "size": "XXL",
+          "sku": "SKU-PBR7SFZ6",
+          "stock": 42
+        },
+        {
+          "id": 2,
+          "color": "Putih",
+          "size": "XXL",
+          "sku": "SKU-NYCDRTSY",
+          "stock": 35
+        },
+        {
+          "id": 3,
+          "color": "Putih",
+          "size": "XL",
+          "sku": "SKU-ZENVLGNS",
+          "stock": 32
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": true,
+      "rating": 3.5,
+      "reviewCount": 111,
+      "createdAt": "2025-02-24"
+    },
+    {
+      "id": 3,
+      "name": "Practical Granite Table",
+      "price": 569031,
+      "discount": 0,
+      "finalPrice": 569031,
+      "stock": 72,
+      "description": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "category": "Tas",
+      "brand": "Zara",
+      "tags": [],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Biru Navy",
+          "size": "M",
+          "sku": "SKU-PAWDY232",
+          "stock": 33
+        },
+        {
+          "id": 2,
+          "color": "Putih",
+          "size": "S",
+          "sku": "SKU-APAEJ7H1",
+          "stock": 2
+        },
+        {
+          "id": 3,
+          "color": "Coklat",
+          "size": "XS",
+          "sku": "SKU-PAFHF3ZA",
+          "stock": 17
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": true,
+      "rating": 3.5,
+      "reviewCount": 23,
+      "createdAt": "2025-05-26"
+    },
+    {
+      "id": 4,
+      "name": "Electronic Bronze Keyboard",
+      "price": 266878,
+      "discount": 0,
+      "finalPrice": 266878,
+      "stock": 64,
+      "description": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+      "category": "Tas",
+      "brand": "Adidas",
+      "tags": [],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Abu-abu",
+          "size": "L",
+          "sku": "SKU-LOKYAYIO",
+          "stock": 42
+        },
+        {
+          "id": 2,
+          "color": "Biru Navy",
+          "size": "L",
+          "sku": "SKU-ERLQGYBZ",
+          "stock": 33
+        },
+        {
+          "id": 3,
+          "color": "Hijau Army",
+          "size": "XS",
+          "sku": "SKU-KQ5UTJGK",
+          "stock": 47
+        },
+        {
+          "id": 4,
+          "color": "Hitam",
+          "size": "XL",
+          "sku": "SKU-SHPCMDIL",
+          "stock": 22
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": true,
+      "rating": 4.8,
+      "reviewCount": 7,
+      "createdAt": "2025-12-18"
+    },
+    {
+      "id": 5,
+      "name": "Small Granite Gloves",
+      "price": 248442,
+      "discount": 43,
+      "finalPrice": 141612,
+      "stock": 75,
+      "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+      "category": "Aksesoris",
+      "brand": "Zara",
+      "tags": [
+        "limited",
+        "bestseller"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Coklat",
+          "size": "XS",
+          "sku": "SKU-POJBBZF9",
+          "stock": 14
+        },
+        {
+          "id": 2,
+          "color": "Coklat",
+          "size": "L",
+          "sku": "SKU-MZAQCPWT",
+          "stock": 11
+        },
+        {
+          "id": 3,
+          "color": "Coklat",
+          "size": "L",
+          "sku": "SKU-C3CTIGOL",
+          "stock": 47
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": true,
+      "rating": 4.9,
+      "reviewCount": 77,
+      "createdAt": "2025-04-26"
+    },
+    {
+      "id": 6,
+      "name": "Tasty Fresh Shirt",
+      "price": 576878,
+      "discount": 0,
+      "finalPrice": 576878,
+      "stock": 7,
+      "description": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "category": "Sepatu",
+      "brand": "Levi's",
+      "tags": [],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Putih",
+          "size": "L",
+          "sku": "SKU-MWQ6DIPS",
+          "stock": 42
+        },
+        {
+          "id": 2,
+          "color": "Merah",
+          "size": "L",
+          "sku": "SKU-7OBNYCBL",
+          "stock": 38
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584917865442-7d5c98b1b9a2?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 3.6,
+      "reviewCount": 44,
+      "createdAt": "2025-04-28"
+    },
+    {
+      "id": 7,
+      "name": "Fantastic Wooden Sausages",
+      "price": 704060,
+      "discount": 0,
+      "finalPrice": 704060,
+      "stock": 94,
+      "description": "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+      "category": "Sepatu",
+      "brand": "Gucci",
+      "tags": [
+        "trending",
+        "new",
+        "limited"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Hijau Army",
+          "size": "XL",
+          "sku": "SKU-1HFVJUSC",
+          "stock": 29
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1584917865442-7d5c98b1b9a2?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 3.4,
+      "reviewCount": 190,
+      "createdAt": "2025-12-04"
+    },
+    {
+      "id": 8,
+      "name": "Gorgeous Cotton Cheese",
+      "price": 997520,
+      "discount": 0,
+      "finalPrice": 997520,
+      "stock": 62,
+      "description": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
+      "category": "Wanita",
+      "brand": "Levi's",
+      "tags": [
+        "limited",
+        "trending"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Hijau Army",
+          "size": "M",
+          "sku": "SKU-BX99LPR2",
+          "stock": 45
+        },
+        {
+          "id": 2,
+          "color": "Krem",
+          "size": "L",
+          "sku": "SKU-KPL01BTF",
+          "stock": 4
+        },
+        {
+          "id": 3,
+          "color": "Abu-abu",
+          "size": "XXL",
+          "sku": "SKU-PLM5QBGL",
+          "stock": 46
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.9,
+      "reviewCount": 59,
+      "createdAt": "2025-08-28"
+    },
+    {
+      "id": 9,
+      "name": "Incredible Bronze Towels",
+      "price": 864643,
+      "discount": 0,
+      "finalPrice": 864643,
+      "stock": 89,
+      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "category": "Wanita",
+      "brand": "H&M",
+      "tags": [
+        "new",
+        "trending",
+        "limited"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Hitam",
+          "size": "XL",
+          "sku": "SKU-YYJUPBEQ",
+          "stock": 11
+        },
+        {
+          "id": 2,
+          "color": "Coklat",
+          "size": "M",
+          "sku": "SKU-2MTIFW0H",
+          "stock": 48
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.9,
+      "reviewCount": 14,
+      "createdAt": "2025-04-23"
+    },
+    {
+      "id": 10,
+      "name": "Sleek Granite Pants",
+      "price": 99129,
+      "discount": 0,
+      "finalPrice": 99129,
+      "stock": 56,
+      "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+      "category": "Tas",
+      "brand": "Adidas",
+      "tags": [
+        "new"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Abu-abu",
+          "size": "M",
+          "sku": "SKU-EOMLKBBZ",
+          "stock": 1
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.1,
+      "reviewCount": 56,
+      "createdAt": "2025-07-10"
+    },
+    {
+      "id": 11,
+      "name": "Gorgeous Cotton Sausages",
+      "price": 761314,
+      "discount": 0,
+      "finalPrice": 761314,
+      "stock": 57,
+      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "category": "Sepatu",
+      "brand": "Levi's",
+      "tags": [
+        "trending"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Hijau Army",
+          "size": "XXL",
+          "sku": "SKU-DUIIVNUL",
+          "stock": 12
+        },
+        {
+          "id": 2,
+          "color": "Biru Navy",
+          "size": "XS",
+          "sku": "SKU-C7JMCNJX",
+          "stock": 19
+        },
+        {
+          "id": 3,
+          "color": "Biru Navy",
+          "size": "XXL",
+          "sku": "SKU-JVF7YY0S",
+          "stock": 11
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 3.6,
+      "reviewCount": 184,
+      "createdAt": "2025-10-31"
+    },
+    {
+      "id": 12,
+      "name": "Licensed Metal Table",
+      "price": 961341,
+      "discount": 0,
+      "finalPrice": 961341,
+      "stock": 1,
+      "description": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
+      "category": "Pria",
+      "brand": "Local Brand",
+      "tags": [
+        "new",
+        "limited"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Krem",
+          "size": "L",
+          "sku": "SKU-ZSQSKRDX",
+          "stock": 27
+        },
+        {
+          "id": 2,
+          "color": "Putih",
+          "size": "S",
+          "sku": "SKU-IDUE4D8O",
+          "stock": 22
+        },
+        {
+          "id": 3,
+          "color": "Putih",
+          "size": "XS",
+          "sku": "SKU-GULRVCAE",
+          "stock": 26
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.1,
+      "reviewCount": 119,
+      "createdAt": "2025-07-21"
+    },
+    {
+      "id": 13,
+      "name": "Oriental Wooden Keyboard",
+      "price": 911684,
+      "discount": 25,
+      "finalPrice": 683763,
+      "stock": 67,
+      "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+      "category": "Pria",
+      "brand": "Nike",
+      "tags": [
+        "bestseller",
+        "limited"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Biru Navy",
+          "size": "M",
+          "sku": "SKU-TLF5IYTE",
+          "stock": 36
+        },
+        {
+          "id": 2,
+          "color": "Coklat",
+          "size": "L",
+          "sku": "SKU-EL5YT7QC",
+          "stock": 25
+        },
+        {
+          "id": 3,
+          "color": "Biru Navy",
+          "size": "XL",
+          "sku": "SKU-QOVB5HCT",
+          "stock": 33
+        },
+        {
+          "id": 4,
+          "color": "Merah",
+          "size": "S",
+          "sku": "SKU-YB4CRNGD",
+          "stock": 32
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 3,
+      "reviewCount": 35,
+      "createdAt": "2025-03-31"
+    },
+    {
+      "id": 14,
+      "name": "Small Plastic Ball",
+      "price": 435737,
+      "discount": 43,
+      "finalPrice": 248370,
+      "stock": 3,
+      "description": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+      "category": "Aksesoris",
+      "brand": "Adidas",
+      "tags": [],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Merah",
+          "size": "M",
+          "sku": "SKU-6ORM2RUQ",
+          "stock": 37
+        },
+        {
+          "id": 2,
+          "color": "Putih",
+          "size": "M",
+          "sku": "SKU-ZXXK804C",
+          "stock": 37
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 3.4,
+      "reviewCount": 87,
+      "createdAt": "2025-07-20"
+    },
+    {
+      "id": 15,
+      "name": "Fantastic Frozen Shirt",
+      "price": 846223,
+      "discount": 0,
+      "finalPrice": 846223,
+      "stock": 46,
+      "description": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+      "category": "Tas",
+      "brand": "Adidas",
+      "tags": [
+        "bestseller",
+        "trending",
+        "limited"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Hijau Army",
+          "size": "S",
+          "sku": "SKU-0SQGG0FD",
+          "stock": 13
+        },
+        {
+          "id": 2,
+          "color": "Putih",
+          "size": "S",
+          "sku": "SKU-6TLNDEVH",
+          "stock": 17
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584917865442-7d5c98b1b9a2?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 3.2,
+      "reviewCount": 97,
+      "createdAt": "2025-11-28"
+    },
+    {
+      "id": 16,
+      "name": "Electronic Bronze Chicken",
+      "price": 147044,
+      "discount": 0,
+      "finalPrice": 147044,
+      "stock": 9,
+      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "category": "Aksesoris",
+      "brand": "Gucci",
+      "tags": [],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Biru Navy",
+          "size": "XL",
+          "sku": "SKU-NGYQ6PXX",
+          "stock": 41
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.5,
+      "reviewCount": 42,
+      "createdAt": "2025-08-17"
+    },
+    {
+      "id": 17,
+      "name": "Refined Plastic Sausages",
+      "price": 367006,
+      "discount": 0,
+      "finalPrice": 367006,
+      "stock": 98,
+      "description": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      "category": "Pria",
+      "brand": "Local Brand",
+      "tags": [],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Merah",
+          "size": "L",
+          "sku": "SKU-H23QZL3T",
+          "stock": 33
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.1,
+      "reviewCount": 183,
+      "createdAt": "2025-12-11"
+    },
+    {
+      "id": 18,
+      "name": "Unbranded Metal Table",
+      "price": 329669,
+      "discount": 13,
+      "finalPrice": 286812,
+      "stock": 82,
+      "description": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+      "category": "Sepatu",
+      "brand": "Uniqlo",
+      "tags": [
+        "trending"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Merah",
+          "size": "XS",
+          "sku": "SKU-TGQ44LYO",
+          "stock": 24
+        },
+        {
+          "id": 2,
+          "color": "Krem",
+          "size": "L",
+          "sku": "SKU-YCYLXXB7",
+          "stock": 20
+        },
+        {
+          "id": 3,
+          "color": "Abu-abu",
+          "size": "M",
+          "sku": "SKU-L05FHOHV",
+          "stock": 19
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 5,
+      "reviewCount": 54,
+      "createdAt": "2025-06-09"
+    },
+    {
+      "id": 19,
+      "name": "Modern Wooden Cheese",
+      "price": 813055,
+      "discount": 0,
+      "finalPrice": 813055,
+      "stock": 89,
+      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "category": "Tas",
+      "brand": "Zara",
+      "tags": [
+        "new",
+        "limited"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Krem",
+          "size": "XXL",
+          "sku": "SKU-X51JIHRP",
+          "stock": 33
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584917865442-7d5c98b1b9a2?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 3.1,
+      "reviewCount": 26,
+      "createdAt": "2025-10-03"
+    },
+    {
+      "id": 20,
+      "name": "Practical Wooden Chicken",
+      "price": 751708,
+      "discount": 0,
+      "finalPrice": 751708,
+      "stock": 3,
+      "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+      "category": "Sepatu",
+      "brand": "Gucci",
+      "tags": [
+        "limited"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Putih",
+          "size": "S",
+          "sku": "SKU-PWYGKYIL",
+          "stock": 38
+        },
+        {
+          "id": 2,
+          "color": "Putih",
+          "size": "XS",
+          "sku": "SKU-RNBTPYZP",
+          "stock": 16
+        },
+        {
+          "id": 3,
+          "color": "Hijau Army",
+          "size": "L",
+          "sku": "SKU-DZH1U7FQ",
+          "stock": 34
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 3.9,
+      "reviewCount": 0,
+      "createdAt": "2025-03-09"
+    },
+    {
+      "id": 21,
+      "name": "Fantastic Frozen Soap",
+      "price": 646855,
+      "discount": 47,
+      "finalPrice": 342833,
+      "stock": 16,
+      "description": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+      "category": "Pria",
+      "brand": "Uniqlo",
+      "tags": [
+        "bestseller"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Biru Navy",
+          "size": "S",
+          "sku": "SKU-FXVQTDWS",
+          "stock": 19
+        },
+        {
+          "id": 2,
+          "color": "Coklat",
+          "size": "M",
+          "sku": "SKU-MC0HHCSQ",
+          "stock": 48
+        },
+        {
+          "id": 3,
+          "color": "Putih",
+          "size": "M",
+          "sku": "SKU-M7NSYVOB",
+          "stock": 31
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1584917865442-7d5c98b1b9a2?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.2,
+      "reviewCount": 4,
+      "createdAt": "2025-12-10"
+    },
+    {
+      "id": 22,
+      "name": "Intelligent Frozen Bacon",
+      "price": 102459,
+      "discount": 35,
+      "finalPrice": 66598,
+      "stock": 62,
+      "description": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+      "category": "Tas",
+      "brand": "Levi's",
+      "tags": [
+        "limited",
+        "trending"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Biru Navy",
+          "size": "S",
+          "sku": "SKU-QCZGGU2U",
+          "stock": 5
+        },
+        {
+          "id": 2,
+          "color": "Hijau Army",
+          "size": "M",
+          "sku": "SKU-XHNT8NFX",
+          "stock": 37
+        },
+        {
+          "id": 3,
+          "color": "Krem",
+          "size": "XXL",
+          "sku": "SKU-K1RWAFGZ",
+          "stock": 44
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1523381210434-271e8f1f643a?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 3.8,
+      "reviewCount": 26,
+      "createdAt": "2025-11-18"
+    },
+    {
+      "id": 23,
+      "name": "Gorgeous Steel Salad",
+      "price": 699325,
+      "discount": 39,
+      "finalPrice": 426588,
+      "stock": 16,
+      "description": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+      "category": "Pria",
+      "brand": "Nike",
+      "tags": [
+        "limited"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Merah",
+          "size": "M",
+          "sku": "SKU-CBEAO1KD",
+          "stock": 35
+        },
+        {
+          "id": 2,
+          "color": "Abu-abu",
+          "size": "L",
+          "sku": "SKU-IDYPHWIP",
+          "stock": 38
+        },
+        {
+          "id": 3,
+          "color": "Krem",
+          "size": "XXL",
+          "sku": "SKU-3AYPVAUU",
+          "stock": 38
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.9,
+      "reviewCount": 72,
+      "createdAt": "2025-03-08"
+    },
+    {
+      "id": 24,
+      "name": "Electronic Frozen Chicken",
+      "price": 510826,
+      "discount": 0,
+      "finalPrice": 510826,
+      "stock": 46,
+      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "category": "Sepatu",
+      "brand": "Local Brand",
+      "tags": [
+        "trending",
+        "limited"
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Hijau Army",
+          "size": "XL",
+          "sku": "SKU-JW0OATQV",
+          "stock": 12
+        },
+        {
+          "id": 2,
+          "color": "Merah",
+          "size": "L",
+          "sku": "SKU-5SZE2KOQ",
+          "stock": 23
+        },
+        {
+          "id": 3,
+          "color": "Biru Navy",
+          "size": "S",
+          "sku": "SKU-TJ3MLSMM",
+          "stock": 24
+        },
+        {
+          "id": 4,
+          "color": "Krem",
+          "size": "XXL",
+          "sku": "SKU-NVLS1M7L",
+          "stock": 11
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=800&h=800&fit=crop&auto=format",
+        "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.4,
+      "reviewCount": 28,
+      "createdAt": "2025-05-19"
+    },
+    {
+      "id": 25,
+      "name": "Bespoke Steel Tuna",
+      "price": 357922,
+      "discount": 0,
+      "finalPrice": 357922,
+      "stock": 8,
+      "description": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+      "category": "Tas",
+      "brand": "Gucci",
+      "tags": [],
+      "variants": [
+        {
+          "id": 1,
+          "color": "Putih",
+          "size": "XS",
+          "sku": "SKU-SGQSDIPI",
+          "stock": 39
+        }
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=800&fit=crop&auto=format"
+      ],
+      "featured": false,
+      "rating": 4.1,
+      "reviewCount": 156,
+      "createdAt": "2026-01-22"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@store.com",
+      "password": "admin123",
+      "name": "Admin Store",
+      "role": "admin",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin",
+      "createdAt": "2024-01-01"
+    },
+    {
+      "id": 2,
+      "email": "user@mail.com",
+      "password": "user123",
+      "name": "Budi Santoso",
+      "role": "customer",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Budi",
+      "createdAt": "2024-02-15"
+    }
+  ],
+  "categories": [
+    "Pria",
+    "Wanita",
+    "Tas",
+    "Sepatu",
+    "Aksesoris"
+  ],
+  "orders": [],
+  "carts": [
+    {
+      "id": 1,
+      "userId": 2,
+      "items": [
+        {
+          "productId": 1,
+          "variantId": 1,
+          "quantity": 2,
+          "addedAt": "2026-02-06T14:07:10.727Z"
+        }
+      ],
+      "updatedAt": "2026-02-06T14:07:10.727Z"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "shalura-backend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "generate-db": "node generate-db.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "json-server": "^0.17.4"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.3.1"
+  }
+}
